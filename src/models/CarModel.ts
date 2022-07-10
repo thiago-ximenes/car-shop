@@ -5,13 +5,13 @@ import GenericModel from './GenericModel';
 interface CarDocument extends Car, Document { }
 
 const carSchema = new Schema<CarDocument>({
-  model: String,
-  year: Number,
-  color: String,
+  model: { type: String, required: true },
+  year: { type: Number, required: true },
+  color: { type: String, required: true },
   status: Boolean,
-  buyValue: Number,
-  doorsQty: Number,
-  seatsQty: Number,
+  buyValue: { type: Number, required: true },
+  doorsQty: { type: Number, required: true },
+  seatsQty: { type: Number, required: true },
 });
 
 class CarModel extends GenericModel<Car> {

@@ -5,10 +5,10 @@ import { Car } from './interfaces/CarInterface';
 
 const server = new App();
 const carController = new CarController();
-const router = new GenericRouter<Car>();
+const carRouter = new GenericRouter<Car>();
 
-router.addRoute(carController);
+carRouter.addRoute(carController);
 
-server.addRouter(router.router);
+server.addRouter(carRouter.router);
 
 export default server;

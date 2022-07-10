@@ -9,7 +9,7 @@ class CarController extends Controller<Car> {
 
   constructor(
     service = new CarService(),
-    route = 'cars',
+    route = '/cars',
   ) {
     super(service);
     this._route = route;
@@ -33,7 +33,7 @@ class CarController extends Controller<Car> {
 
       return res.status(201).json(car);
     } catch (err) {
-      return res.status(500).json({ error: this.errors.internal });
+      return res.status(400).json({ error: this.errors.internal });
     }
   };
 }
