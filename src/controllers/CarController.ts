@@ -1,4 +1,4 @@
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import { Car } from '../interfaces/CarInterface';
 import CarService from '../services/CarService';
 import Controller,
@@ -49,6 +49,28 @@ class CarController extends Controller<Car> {
     }
 
     return res.status(200).json(cars);
+  };
+
+  readOne = async (
+    req: Request<{ id: string }>,
+    res: Response<Car | ResponseError>,
+  ): Promise<typeof res> => {
+    const { id } = req.params;
+
+    if (!id) return res.status(400).json({ error: this.errors.requiredId });
+
+    if (id.length !== 24) {
+      return res.status(400).json({ error: this.errors.idLength });
+    }
+
+    const car = await this.service.readOne(id);
+
+    if (!car) return res.status(404).json({ error: this.errors.notFound });
+    if ('error' in car) {
+      return res.status(400).json(car);
+    }
+
+    return res.status(200).json(car);
   };
 }
 

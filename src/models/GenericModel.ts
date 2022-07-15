@@ -13,7 +13,7 @@ abstract class GenericModel<T> implements Model<T> {
   }
 
   async readOne(id: string): Promise<T | null> {
-    return this.model.findById(id);
+    return this.model.findOne({ _id: id });
   }
 
   async update(id: string, data: T): Promise<T | null> {
