@@ -28,10 +28,10 @@ abstract class GenericController<T> {
     res: Response<T | ResponseError>,
   ): Promise<typeof res>;
 
-  // abstract read(
-  //   _req: Request,
-  //   res: Response<T[] | ResponseError>,
-  // ): Promise<typeof res>;
+  abstract read(
+    _req: Request,
+    res: Response<T[] | ResponseError>,
+  ): Promise<typeof res>;
 
   // abstract readOne(
   //   req: RequestWithBody<T>,
