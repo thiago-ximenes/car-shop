@@ -38,6 +38,7 @@ describe('', () => {
 
     const result = await carModel.create(createCar)
     expect(result).to.be.equal(createCarResult)
+    sinon.restore()
   });
 
   it('', async () => {
@@ -47,6 +48,7 @@ describe('', () => {
 
     const result = await carModel.read()
     expect(result).to.be.equal(readCars)
+    sinon.restore()
   });
 
   it('', async () => {
@@ -65,6 +67,7 @@ describe('', () => {
 
     const result = await carModel.update('4edd40c86762e0fb12000003', createCar)
     expect(result).to.be.equal(createCar)
+    sinon.restore()
   });
 
   it('', async () => {
@@ -74,5 +77,6 @@ describe('', () => {
 
     const result = await carModel.delete('4edd40c86762e0fb12000003')
     expect(result).to.be.equal(createCarResult)
+    sinon.restore()
   });
 })
