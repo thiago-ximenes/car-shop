@@ -57,4 +57,22 @@ describe('', () => {
     const result = await carModel.readOne('4edd40c86762e0fb12000003')
     expect(result).to.be.equal(readCarsOne)
   });
+
+  it('', async () => {
+    sinon
+      .stub(carModel, 'update')
+      .resolves(createCar as Car);
+
+    const result = await carModel.update('4edd40c86762e0fb12000003', createCar)
+    expect(result).to.be.equal(createCar)
+  });
+
+  it('', async () => {
+    sinon
+      .stub(carModel, 'delete')
+      .resolves(createCarResult);
+
+    const result = await carModel.delete('4edd40c86762e0fb12000003')
+    expect(result).to.be.equal(createCarResult)
+  });
 })
