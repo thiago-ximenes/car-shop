@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 
 import CarService from '../../../services/CarService';
 import { Car } from '../../../interfaces/CarInterface'
-import { readCars } from '../mocks';
+import { readCars, readCarsOne } from '../mocks';
 
 const carService = new CarService;
 
@@ -39,6 +39,7 @@ describe('', () => {
     const result = await carService.create(createCar)
     expect(result).to.be.equal(createCarResult)
   });
+  
   it('', async () => {
     sinon
       .stub(carService, 'read')
@@ -46,5 +47,14 @@ describe('', () => {
 
     const result = await carService.read()
     expect(result).to.be.equal(readCars)
+  });
+
+  it('', async () => {
+    sinon
+      .stub(carService, 'readOne')
+      .resolves(readCarsOne as Car)
+
+    const result = await carService.readOne('4edd40c86762e0fb12000003')
+    expect(result).to.be.equal(readCarsOne)
   });
 })

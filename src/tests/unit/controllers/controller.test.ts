@@ -7,7 +7,7 @@ import { Response, Request } from 'express';
 import CarController from '../../../controllers/CarController';
 import { Car } from '../../../interfaces/CarInterface'
 import { RequestWithBody, ResponseError } from '../../../controllers/GenericController';
-import { createCar, createCarResult, readCars } from '../mocks';
+import { createCar, createCarResult, readCars, readCarsOne } from '../mocks';
 import Sinon = require('sinon');
 
 
@@ -41,11 +41,27 @@ describe('', () => {
       .resolves(readCars)
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns(res);
-    req.body = createCar as Car
 
     const result = await carController.read(req, res)
     expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true
     expect((res.json as sinon.SinonStub).calledWith(readCars)).to.be.true
+    sinon.restore()
+  });
+
+  it('', async () => {
+    const req = { params: {
+      id: '5e8f8f8f8f8f8f8f8f8f8f8f'
+    } } as Request<{ id: string }>
+    const res = {} as Response<Car | ResponseError>
+    sinon
+      .stub(carController.service, 'readOne')
+      .resolves(readCarsOne)
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns(res);
+
+    const result = await carController.readOne(req, res)
+    expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true
+    expect((res.json as sinon.SinonStub).calledWith(readCarsOne)).to.be.true
     sinon.restore()
   });
 })
