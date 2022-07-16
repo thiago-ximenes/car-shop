@@ -39,10 +39,10 @@ abstract class GenericController<T> {
     res: Response<T | ResponseError>,
   ): Promise<typeof res>;
 
-  // abstract update(
-  //   req: RequestWithBody<T>,
-  //   res: Response<T | ResponseError>,
-  // ): Promise<typeof res>;
+  abstract update(
+    req: RequestWithBody<T>,
+    res: Response<T | ResponseError>,
+  ): Promise<typeof res>;
 
   // abstract delete(
   //   req: RequestWithBody<T>,
