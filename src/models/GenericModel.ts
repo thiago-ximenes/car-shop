@@ -17,7 +17,7 @@ abstract class GenericModel<T> implements Model<T> {
   }
 
   async update(id: string, data: T): Promise<T | null> {
-    return this.model.findByIdAndUpdate({ _id: id }, { data });
+    return this.model.findByIdAndUpdate(id, data, { new: true });
   }
 
   async delete(id: string): Promise<T | null> {

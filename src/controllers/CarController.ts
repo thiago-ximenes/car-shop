@@ -79,21 +79,30 @@ class CarController extends Controller<Car> {
   ): Promise<Response<ResponseError | Car>> => {
     const { body, params: { id } } = req;
 
+    if (!id) return res.status(400).json({ error: this.errors.requiredId });
+    if (Object.keys(body)
+      .length === 0
+    ) return res.status(400).json({ error: this.errors.badRequest });
+
+    if (id.length !== 24) {
+      return res.status(400).json({ error: this.errors.idLength });
+    }
+
     const car = await this.service.update(id, body);
 
     if (!car) return res.status(404).json({ error: this.errors.notFound });
-    if ('error' in car) {
-      return res.status(400).json(car);
-    }
-
     return res.status(200).json(car);
-  }
+  };
 
   delete = async (
     req: RequestWithBody<Car>,
     res: Response<ResponseError | Car>,
   ): Promise<Response<ResponseError | Car>> => {
     const { params: { id } } = req;
+
+    if (id.length !== 24) {
+      return res.status(400).json({ error: this.errors.idLength });
+    }
 
     const car = await this.service.delete(id);
 
@@ -103,7 +112,7 @@ class CarController extends Controller<Car> {
     }
 
     return res.status(204).json(car);
-  }
+  };
 }
 
 export default CarController;
