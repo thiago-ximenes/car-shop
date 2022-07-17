@@ -2,7 +2,7 @@ import { Schema, model as createModel, Document } from 'mongoose';
 import { Car } from '../interfaces/CarInterface';
 import GenericModel from './GenericModel';
 
-interface CarDocument extends Car, Document { }
+export interface CarDocument extends Car, Document { }
 
 const carSchema = new Schema<CarDocument>({
   model: { type: String, required: true },
@@ -14,8 +14,10 @@ const carSchema = new Schema<CarDocument>({
   seatsQty: { type: Number, required: true },
 }, { versionKey: false });
 
+export const carModel = createModel<CarDocument>('Car', carSchema);
+
 class CarModel extends GenericModel<Car> {
-  constructor(model = createModel('Cars', carSchema)) {
+  constructor(model = carModel) {
     super(model);
   }
 }

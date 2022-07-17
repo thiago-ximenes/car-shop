@@ -2,7 +2,7 @@ import * as sinon from 'sinon';
 import * as chai from 'chai';
 import mongoose from 'mongoose';
 
-import CarModel from '../../../models/CarModel';
+import CarModel, { CarDocument, carModel as mongoModel } from '../../../models/CarModel';
 import { Car } from '../../../interfaces/CarInterface'
 import { readCars, readCarsOne } from '../mocks';
 
@@ -33,7 +33,7 @@ const createCarResult = {
 describe('Model', () => {
   it('create', async () => {
     sinon
-      .stub(carModel, 'create')
+      .stub(mongoModel, 'create')
       .resolves(createCarResult as Car)
 
     const result = await carModel.create(createCar)
@@ -43,8 +43,8 @@ describe('Model', () => {
 
   it('read', async () => {
     sinon
-      .stub(carModel, 'read')
-      .resolves(readCars as Car[]);
+      .stub(mongoModel, 'find')
+      .resolves(readCars as (CarDocument & { _id: any; })[]);
 
     const result = await carModel.read()
     expect(result).to.be.equal(readCars)
@@ -53,8 +53,8 @@ describe('Model', () => {
 
   it('readOne', async () => {
     sinon
-      .stub(carModel, 'readOne')
-      .resolves(readCarsOne as Car);
+      .stub(mongoModel, 'findOne')
+      .resolves(readCarsOne as (CarDocument & { _id: any; }));
 
     const result = await carModel.readOne('4edd40c86762e0fb12000003')
     expect(result).to.be.equal(readCarsOne)
@@ -62,8 +62,8 @@ describe('Model', () => {
 
   it('update', async () => {
     sinon
-      .stub(carModel, 'update')
-      .resolves(createCar as Car);
+      .stub(mongoModel, 'findByIdAndUpdate')
+      .resolves(createCar as (CarDocument & { _id: any; }) | null | undefined);
 
     const result = await carModel.update('4edd40c86762e0fb12000003', createCar)
     expect(result).to.be.equal(createCar)
@@ -72,8 +72,8 @@ describe('Model', () => {
 
   it('delete', async () => {
     sinon
-      .stub(carModel, 'delete')
-      .resolves(createCarResult);
+      .stub(mongoModel, 'findOneAndDelete')
+      .resolves(createCarResult as CarDocument & { _id: any; });
 
     const result = await carModel.delete('4edd40c86762e0fb12000003')
     expect(result).to.be.equal(createCarResult)
