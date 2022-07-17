@@ -5,7 +5,6 @@ import mongoose from 'mongoose';
 import CarModel from '../../../models/CarModel';
 import { Car } from '../../../interfaces/CarInterface'
 import { readCars, readCarsOne } from '../mocks';
-import GenericModel from '../../../models/GenericModel';
 
 const carModel = new CarModel();
 
