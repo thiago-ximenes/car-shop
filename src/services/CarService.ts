@@ -2,8 +2,10 @@ import Service, { ServiceError } from './GenericService';
 import { Car, CarSchema } from '../interfaces/CarInterface';
 import CarModel from '../models/CarModel';
 
+export const carModel = new CarModel();
+
 class CarService extends Service<Car> {
-  constructor(model = new CarModel()) {
+  constructor(model = carModel) {
     super(model);
   }
 

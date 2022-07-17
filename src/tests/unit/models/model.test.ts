@@ -5,8 +5,9 @@ import mongoose from 'mongoose';
 import CarModel from '../../../models/CarModel';
 import { Car } from '../../../interfaces/CarInterface'
 import { readCars, readCarsOne } from '../mocks';
+import GenericModel from '../../../models/GenericModel';
 
-const carModel = new CarModel;
+const carModel = new CarModel();
 
 const { expect } = chai;
 
@@ -30,8 +31,8 @@ const createCarResult = {
   doorsQty: 2
 }
 
-describe('', () => {
-  it('', async () => {
+describe('Model', () => {
+  it('create', async () => {
     sinon
       .stub(carModel, 'create')
       .resolves(createCarResult as Car)
@@ -41,7 +42,7 @@ describe('', () => {
     sinon.restore()
   });
 
-  it('', async () => {
+  it('read', async () => {
     sinon
       .stub(carModel, 'read')
       .resolves(readCars as Car[]);
@@ -51,7 +52,7 @@ describe('', () => {
     sinon.restore()
   });
 
-  it('', async () => {
+  it('readOne', async () => {
     sinon
       .stub(carModel, 'readOne')
       .resolves(readCarsOne as Car);
@@ -60,7 +61,7 @@ describe('', () => {
     expect(result).to.be.equal(readCarsOne)
   });
 
-  it('', async () => {
+  it('update', async () => {
     sinon
       .stub(carModel, 'update')
       .resolves(createCar as Car);
@@ -70,7 +71,7 @@ describe('', () => {
     sinon.restore()
   });
 
-  it('', async () => {
+  it('delete', async () => {
     sinon
       .stub(carModel, 'delete')
       .resolves(createCarResult);
